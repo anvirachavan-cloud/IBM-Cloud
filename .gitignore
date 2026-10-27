@@ -1,0 +1,58 @@
+# Credentials and secrets
+config.env
+.env
+*.env
+!config.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp debug scripts (not part of the app)
+check_models.py
+test_llama.py
+e2e_test.py
+http_test.py
+_repo_browse.py
+_repo_check.py
+_check_imports.py
+
+# Logs
+*.log
+logs/
+
+# Flask instance
+instance/
+
+# Push helper scripts
+_write_gitignore.py
+push_to_github.py

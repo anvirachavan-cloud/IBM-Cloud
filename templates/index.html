@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriGuide AI — IBM Granite</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────── -->
+<header>
+  <span class="logo">🥗</span>
+  <div>
+    <h1>NutriGuide AI</h1>
+    <p>Personalised Nutrition Planning powered by Agentic AI</p>
+  </div>
+  <span class="ibm-badge">⚡ IBM Granite LLM</span>
+</header>
+
+<!-- ── Main ───────────────────────────────────────────────── -->
+<main>
+
+  <!-- Tabs -->
+  <div class="card" style="padding-bottom:0;">
+    <div class="tabs">
+      <button class="tab active" data-tab="tab-plan">🍽️ Nutrition Plan</button>
+      <button class="tab"        data-tab="tab-chat">💬 Ask NutriGuide</button>
+      <button class="tab"        data-tab="tab-about">ℹ️ About</button>
+    </div>
+
+    <!-- ── TAB: Nutrition Plan ─────────────────────────────── -->
+    <div id="tab-plan" class="tab-panel active" style="padding:28px 0 8px;">
+
+      <!-- Step indicator -->
+      <div class="steps">
+        <div class="step active">
+          <div class="circle">1</div>Your Profile
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="circle">2</div>Generating
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="circle">3</div>Your Plan
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="plan-form" novalidate>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input id="name" type="text" placeholder="e.g. Priya Sharma" required maxlength="80" />
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age *</label>
+            <input id="age" type="number" placeholder="e.g. 30" min="1" max="120" required />
+          </div>
+
+          <div class="form-group">
+            <label for="diet">Diet Preference *</label>
+            <select id="diet" required>
+              <option value="vegetarian">🥦 Vegetarian</option>
+              <option value="vegan">🌱 Vegan</option>
+              <option value="non-vegetarian">🍗 Non-Vegetarian</option>
+              <option value="pescatarian">🐟 Pescatarian</option>
+              <option value="flexitarian">🥗 Flexitarian</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="activity">Activity Level *</label>
+            <select id="activity">
+              <option value="sedentary">🪑 Sedentary</option>
+              <option value="lightly active">🚶 Lightly Active</option>
+              <option value="moderately active" selected>🏃 Moderately Active</option>
+              <option value="very active">💪 Very Active</option>
+              <option value="athlete">🏋️ Athlete</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="city">City</label>
+            <input id="city" type="text" placeholder="e.g. Mumbai" maxlength="80" />
+          </div>
+
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input id="country" type="text" placeholder="e.g. India" maxlength="80" />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="medical">Medical History</label>
+            <textarea id="medical" placeholder="e.g. Type 2 Diabetes, High Blood Pressure, Hypothyroidism… (leave blank if none)"></textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="goal">Health Goal</label>
+            <input id="goal" type="text" placeholder="e.g. Lose 5 kg, Manage blood sugar, Build muscle…" maxlength="200" />
+          </div>
+
+        </div><!-- /form-grid -->
+
+        <div class="btn-group" style="margin-top:20px;">
+          <button id="plan-submit" type="submit" class="btn btn-primary">
+            🚀 Generate My Plan
+          </button>
+          <button id="reset-btn" type="button" class="btn btn-outline">
+            🔄 Reset
+          </button>
+        </div>
+      </form>
+
+      <!-- Result output -->
+      <div id="plan-result" style="margin-top:10px;"></div>
+
+    </div><!-- /tab-plan -->
+
+    <!-- ── TAB: Ask NutriGuide ──────────────────────────────── -->
+    <div id="tab-chat" class="tab-panel" style="padding:28px 0 8px;">
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px;">
+        Ask anything about nutrition, diet, healthy eating, or ingredient substitutions.
+        The AI is powered by <strong>IBM Granite</strong> and follows ethical guidelines.
+      </p>
+      <div id="chat-window" class="chat-window"></div>
+      <div class="chat-input-row">
+        <input id="chat-input" type="text" placeholder="e.g. What foods are good for diabetes?" />
+        <button id="chat-send" class="btn btn-secondary">Send ➤</button>
+      </div>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:10px;">
+        ⚕️ AI responses are for informational purposes only. Always consult a healthcare professional.
+      </p>
+    </div><!-- /tab-chat -->
+
+    <!-- ── TAB: About ───────────────────────────────────────── -->
+    <div id="tab-about" class="tab-panel" style="padding:28px 0 24px;">
+      <h2 style="color:var(--green-dark);margin-bottom:14px;">About NutriGuide AI</h2>
+      <p><strong>NutriGuide AI</strong> is an agentic AI nutrition assistant that leverages
+        <strong>IBM Granite LLM</strong> via <strong>watsonx.ai</strong> to generate
+        personalised, evidence-based nutrition plans.</p>
+      <br>
+      <h3 style="color:var(--green-mid);margin-bottom:8px;">🔑 Key Features</h3>
+      <ul style="padding-left:20px;line-height:2;">
+        <li>Personalised 7-day nutrition plans based on age, diet, medical history & location</li>
+        <li>Condition-aware guidance (Diabetes, Hypertension, etc.)</li>
+        <li>Real-time Q&A using IBM Granite Agentic AI</li>
+        <li>Ethical AI guardrails &amp; content filtering</li>
+        <li>HAM principles — Helpful, Accurate &amp; Mindful responses</li>
+        <li>Clear medical disclaimer on every output</li>
+      </ul>
+      <br>
+      <h3 style="color:var(--green-mid);margin-bottom:8px;">🛡️ AI Ethics &amp; Safety</h3>
+      <p>This application follows IBM's responsible AI principles. All outputs are filtered
+        for harmful content. Extreme diet advice and dangerous recommendations are blocked
+        at the guardrail layer before reaching the LLM.</p>
+      <br>
+      <div class="disclaimer-box">
+        <strong>⚕️ MEDICAL DISCLAIMER:</strong> This application is for informational purposes only
+        and does not constitute medical advice. Always consult a qualified healthcare provider
+        before making dietary changes, especially if you have a medical condition.
+      </div>
+      <br>
+      <h3 style="color:var(--green-mid);margin-bottom:8px;">⚙️ Technical Stack</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+        <tr style="background:var(--green-pale);">
+          <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);">Component</th>
+          <th style="text-align:left;padding:8px 12px;border:1px solid var(--border);">Technology</th>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;border:1px solid var(--border);">LLM</td>
+          <td style="padding:8px 12px;border:1px solid var(--border);">IBM Granite 13B Instruct v2</td>
+        </tr>
+        <tr style="background:#fafffe;">
+          <td style="padding:8px 12px;border:1px solid var(--border);">AI Platform</td>
+          <td style="padding:8px 12px;border:1px solid var(--border);">IBM watsonx.ai (au-syd)</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;border:1px solid var(--border);">Backend</td>
+          <td style="padding:8px 12px;border:1px solid var(--border);">Python / Flask</td>
+        </tr>
+        <tr style="background:#fafffe;">
+          <td style="padding:8px 12px;border:1px solid var(--border);">Frontend</td>
+          <td style="padding:8px 12px;border:1px solid var(--border);">HTML5 / CSS3 / Vanilla JS</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;border:1px solid var(--border);">Guardrails</td>
+          <td style="padding:8px 12px;border:1px solid var(--border);">Custom regex + prompt engineering</td>
+        </tr>
+      </table>
+    </div><!-- /tab-about -->
+
+  </div><!-- /card -->
+
+</main>
+
+<footer>
+  🥗 NutriGuide AI &nbsp;|&nbsp; Powered by <strong>IBM Granite LLM</strong> on watsonx.ai
+  &nbsp;|&nbsp; © 2024 &nbsp;|&nbsp; For educational purposes only
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
